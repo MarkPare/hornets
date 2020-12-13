@@ -14,7 +14,15 @@ spec:
     - host: app.asian-giant-hornet.com
       http:
        paths:
-        - path: /
+        - path: /hello
           backend:
             serviceName: hornets-service
             servicePort: 5000
+        - path: /predict
+          backend:
+            serviceName: hornets-service
+            servicePort: 5000
+        - path: /
+          backend:
+            serviceName: hornets-client-service
+            servicePort: 3000

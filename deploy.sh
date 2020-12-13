@@ -56,19 +56,19 @@ echo "Hornets API built and pushed"
 ########
 # CLIENT
 ########
-# echo "Building and pushing client..."
+echo "Building and pushing client..."
 
-# gcloud builds submit --config web/cloudbuild.yaml web --substitutions=SHORT_SHA=$COMMIT_ID
+gcloud builds submit --config web/cloudbuild.yaml web --substitutions=SHORT_SHA=$COMMIT_ID
 
-# echo "prev output $?"
+echo "prev output $?"
 
-# if [ $? != 0 ]
-# then
-#   echo "Failed to build and push client"
-#   exit 1
-# fi
+if [ $? != 0 ]
+then
+  echo "Failed to build and push client"
+  exit 1
+fi
 
-# echo "Client built and pushed"
+echo "Client built and pushed"
 
 
 ###########
@@ -79,11 +79,13 @@ rm -rf k8s-tmp || true
 cp -R k8s k8s-tmp
 
 SERVER_FILE_PATH="k8s-tmp/hornets.yaml"
-COMPONENT_NAME="hornets"
+SERVER_COMPONENT_NAME="hornets"
+CLIENT_FILE_PATH="k8s-tmp/hornets-client.yaml"
+CLIENT_COMPONENT_NAME="hornets-client"
 
-sed -i.bak "s#gcr.io/${PROJECT_ID}/${COMPONENT_NAME}:latest#gcr.io/${PROJECT_ID}/${COMPONENT_NAME}:${COMMIT_ID}#" "$SERVER_FILE_PATH"
+sed -i.bak "s#gcr.io/${PROJECT_ID}/${SERVER_COMPONENT_NAME}:latest#gcr.io/${PROJECT_ID}/${SERVER_COMPONENT_NAME}:${COMMIT_ID}#" "$SERVER_FILE_PATH"
 
-# sed -i.bak "s#gcr.io/${PROJECT_ID}/client:latest#gcr.io/${PROJECT_ID}/client:${COMMIT_ID}#" "$CLIENT_FILE_PATH"
+sed -i.bak "s#gcr.io/${PROJECT_ID}/${CLIENT_COMPONENT_NAME}:latest#gcr.io/${PROJECT_ID}/${CLIENT_COMPONENT_NAME}:${COMMIT_ID}#" "$CLIENT_FILE_PATH"
 
 rm k8s-tmp/*.bak
 
