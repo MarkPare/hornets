@@ -34,4 +34,4 @@ spec:
             - containerPort: 5000
           env:
             - name: APP_ENV
-            - value: "prod"
+              value: "prod"
