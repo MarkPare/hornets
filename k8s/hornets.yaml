@@ -32,3 +32,6 @@ spec:
           image: gcr.io/learn-217205/hornets:latest
           ports:
             - containerPort: 5000
+          env:
+            - name: APP_ENV
+            - value: "prod"

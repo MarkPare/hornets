@@ -1,7 +1,6 @@
 bin
 include
 lib
-model_state_dicts
 .Python
 pip-selfcheck.json
 **/__pycache__
