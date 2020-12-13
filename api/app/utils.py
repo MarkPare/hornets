@@ -11,6 +11,8 @@ import os
 import sys
 import time
 
+MODEL_WEIGHTS_PATH = './model_state_dicts/model.pkl'
+
 cwd = os.getcwd()
 class_names = ['vespa_mandarinia', 'sphecius_speciosus', 'sphex_ichneumoneus']
 
@@ -21,8 +23,7 @@ def get_model():
     model = models.resnet18(pretrained=True)
     num_features = model.fc.in_features
     model.fc = nn.Linear(num_features, len(class_names))
-    model_weights_path = './model_state_dicts/first.pkl'
-    state_dict = torch.load(model_weights_path, map_location='cuda:0' if torch.cuda.is_available() else 'cpu')
+    state_dict = torch.load(MODEL_WEIGHTS_PATH, map_location='cuda:0' if torch.cuda.is_available() else 'cpu')
     model.load_state_dict(state_dict)
     model.eval()
     return model
@@ -44,7 +45,13 @@ def get_prediction(image_bytes):
     main_model = get_model()
     tensor = transform_image(image_bytes)
     outputs = main_model(tensor)
+    print('outputs ' + outputs)
+    # full_results = {}
+    # for index, key in enumerate(class_names):
+    #     full_results[key] = outputs[]
     _, y_hat = outputs.max(1)
     predicted_index = y_hat.item()
     prediction = class_names[predicted_index]
+    # TODO: would be useful to return predictions
+    # as percentages
     return {'prediction': prediction}
