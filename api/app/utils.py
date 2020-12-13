@@ -1,5 +1,7 @@
 import io
 import json
+import torch
+from torch import nn
 import torchvision.transforms as transforms
 from torchvision import models
 from PIL import Image
@@ -9,13 +11,23 @@ import os
 import sys
 import time
 
-
-def get_id(): return str(uuid4())
-
-model = models.densenet121(pretrained=True)
-model.eval()
 cwd = os.getcwd()
 class_names = ['vespa_mandarinia', 'sphecius_speciosus', 'sphex_ichneumoneus']
+
+def get_id():
+    return str(uuid4())
+
+def get_model():
+    model = models.resnet18(pretrained=True)
+    num_features = model.fc.in_features
+    model.fc = nn.Linear(num_features, len(class_names))
+    model_weights_path = './model_state_dicts/first.pkl'
+    state_dict = torch.load(model_weights_path, map_location='cuda:0' if torch.cuda.is_available() else 'cpu')
+    model.load_state_dict(state_dict)
+    model.eval()
+    return model
+
+main_model = get_model()
 
 def transform_image(image_bytes):
     # TODO: check that these transforms are legit and correct
@@ -29,18 +41,10 @@ def transform_image(image_bytes):
     return ts(image).unsqueeze(0)
 
 def get_prediction(image_bytes):
+    main_model = get_model()
     tensor = transform_image(image_bytes)
-    outputs = model.forward(tensor)
+    outputs = main_model(tensor)
     _, y_hat = outputs.max(1)
-    print('y hat', y_hat)
-    predicted_index = str(y_hat.item())
-    result = class_names[predicted_index]
+    predicted_index = y_hat.item()
     prediction = class_names[predicted_index]
-    return {'prediction': prediction, 'full_results': y_hat}
-
-def get_model():
-    model = models.resnet18(pretrained=True)
-    num_features = model.fc.in_features
-    model.fc = nn.Linear(num_features, 3)
-    model_weights_path = './model_data/'
-    weights = ''
+    return {'prediction': prediction}

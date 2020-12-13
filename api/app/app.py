@@ -4,7 +4,8 @@ from utils import get_prediction
 import os
 
 UPLOAD_FOLDER = './uploads'
-os.mkdir(UPLOAD_FOLDER)
+if not os.path.isdir(UPLOAD_FOLDER):
+    os.mkdir(UPLOAD_FOLDER)
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 

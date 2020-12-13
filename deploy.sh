@@ -1,8 +1,8 @@
 #!/bin/bash
 
-read -p "Are you sure you want to deploy? (if so, enter 'yes'): " USER_RESPONSE
+read -p "Are you sure you want to deploy? (if so, enter 'y'): " USER_RESPONSE
 
-if [ "$USER_RESPONSE" != "yes" ]
+if [ "$USER_RESPONSE" != "y" ]
 then
   echo "Aborting deploy..."
   exit 0
