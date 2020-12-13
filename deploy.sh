@@ -87,16 +87,19 @@ fi
 # K8s files
 ###########
 rm -rf k8s-tmp || true
-
-cp -R k8s k8s-tmp
+mkdir k8s-tmp
 
 if [[ "$COMPONENT" =~ ^(all|server)$ ]]; then
+  cp "k8s/hornets.yaml" k8s-tmp
+  cp "k8s/ingress.yaml" k8s-tmp
   SERVER_FILE_PATH="k8s-tmp/hornets.yaml"
   SERVER_COMPONENT_NAME="hornets"
   sed -i.bak "s#gcr.io/${PROJECT_ID}/${SERVER_COMPONENT_NAME}:latest#gcr.io/${PROJECT_ID}/${SERVER_COMPONENT_NAME}:${COMMIT_ID}#" "$SERVER_FILE_PATH"
 fi
 
 if [[ "$COMPONENT" =~ ^(all|client)$ ]]; then
+  cp "k8s/hornets-client.yaml" k8s-tmp
+  cp "k8s/ingress.yaml" k8s-tmp
   CLIENT_FILE_PATH="k8s-tmp/hornets-client.yaml"
   CLIENT_COMPONENT_NAME="hornets-client"
   sed -i.bak "s#gcr.io/${PROJECT_ID}/${CLIENT_COMPONENT_NAME}:latest#gcr.io/${PROJECT_ID}/${CLIENT_COMPONENT_NAME}:${COMMIT_ID}#" "$CLIENT_FILE_PATH"
