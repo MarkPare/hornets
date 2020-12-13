@@ -9,6 +9,7 @@ import os
 import sys
 import time
 
+
 def get_id(): return str(uuid4())
 
 model = models.densenet121(pretrained=True)
@@ -36,3 +37,10 @@ def get_prediction(image_bytes):
     result = class_names[predicted_index]
     prediction = class_names[predicted_index]
     return {'prediction': prediction, 'full_results': y_hat}
+
+def get_model():
+    model = models.resnet18(pretrained=True)
+    num_features = model.fc.in_features
+    model.fc = nn.Linear(num_features, 3)
+    model_weights_path = './model_data/'
+    weights = ''
