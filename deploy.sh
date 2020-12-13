@@ -1,5 +1,14 @@
 #!/bin/bash
 
+COMPONENT=$1
+
+if [[ "$COMPONENT" =~ ^(all|client|server)$ ]]; then
+  echo "Starting build for component: $COMPONENT"
+else
+  echo "Unknown component: $COMPONENT"
+  exit 1
+fi
+
 read -p "Are you sure you want to deploy? y/n: " USER_RESPONSE
 
 if [ "$USER_RESPONSE" != "y" ]
@@ -39,36 +48,39 @@ echo "Commit ID is $COMMIT_ID"
 ########
 # SERVER
 ########
-echo "Building and pushing Hornets API..."
+if [[ "$COMPONENT" =~ ^(all|server)$ ]]; then
+  echo "Building and pushing Hornets API..."
+  gcloud builds submit --config api/cloudbuild.yaml api --substitutions=SHORT_SHA=$COMMIT_ID
 
-gcloud builds submit --config api/cloudbuild.yaml api --substitutions=SHORT_SHA=$COMMIT_ID
+  echo "prev output $?"
 
-echo "prev output $?"
+  if [ $? != 0 ]
+  then
+    echo "Failed to build and push server"
+    exit 1
+  fi
 
-if [ $? != 0 ]
-then
-  echo "Failed to build and push server"
-  exit 1
+  echo "Hornets API built and pushed"
 fi
-
-echo "Hornets API built and pushed"
 
 ########
 # CLIENT
 ########
-echo "Building and pushing client..."
+if [[ "$COMPONENT" =~ ^(all|client)$ ]]; then
+  echo "Building and pushing client..."
 
-gcloud builds submit --config web/cloudbuild.yaml web --substitutions=SHORT_SHA=$COMMIT_ID
+  gcloud builds submit --config web/cloudbuild.yaml web --substitutions=SHORT_SHA=$COMMIT_ID
 
-echo "prev output $?"
+  echo "prev output $?"
 
-if [ $? != 0 ]
-then
-  echo "Failed to build and push client"
-  exit 1
+  if [ $? != 0 ]
+  then
+    echo "Failed to build and push client"
+    exit 1
+  fi
+
+  echo "Client built and pushed"
 fi
-
-echo "Client built and pushed"
 
 
 ###########
@@ -78,14 +90,17 @@ rm -rf k8s-tmp || true
 
 cp -R k8s k8s-tmp
 
-SERVER_FILE_PATH="k8s-tmp/hornets.yaml"
-SERVER_COMPONENT_NAME="hornets"
-CLIENT_FILE_PATH="k8s-tmp/hornets-client.yaml"
-CLIENT_COMPONENT_NAME="hornets-client"
+if [[ "$COMPONENT" =~ ^(all|server)$ ]]; then
+  SERVER_FILE_PATH="k8s-tmp/hornets.yaml"
+  SERVER_COMPONENT_NAME="hornets"
+  sed -i.bak "s#gcr.io/${PROJECT_ID}/${SERVER_COMPONENT_NAME}:latest#gcr.io/${PROJECT_ID}/${SERVER_COMPONENT_NAME}:${COMMIT_ID}#" "$SERVER_FILE_PATH"
+fi
 
-sed -i.bak "s#gcr.io/${PROJECT_ID}/${SERVER_COMPONENT_NAME}:latest#gcr.io/${PROJECT_ID}/${SERVER_COMPONENT_NAME}:${COMMIT_ID}#" "$SERVER_FILE_PATH"
-
-sed -i.bak "s#gcr.io/${PROJECT_ID}/${CLIENT_COMPONENT_NAME}:latest#gcr.io/${PROJECT_ID}/${CLIENT_COMPONENT_NAME}:${COMMIT_ID}#" "$CLIENT_FILE_PATH"
+if [[ "$COMPONENT" =~ ^(all|client)$ ]]; then
+  CLIENT_FILE_PATH="k8s-tmp/hornets-client.yaml"
+  CLIENT_COMPONENT_NAME="hornets-client"
+  sed -i.bak "s#gcr.io/${PROJECT_ID}/${CLIENT_COMPONENT_NAME}:latest#gcr.io/${PROJECT_ID}/${CLIENT_COMPONENT_NAME}:${COMMIT_ID}#" "$CLIENT_FILE_PATH"
+fi
 
 rm k8s-tmp/*.bak
 

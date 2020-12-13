@@ -133,11 +133,11 @@ export class FileInput extends React.Component<Props, State> {
               className='add-button'
             />
           </div>
-          <div className='previews-container'>
+          {/* <div className='previews-container'>
             <div className='previews-container-inner'>
               {this.renderPreviews()}
             </div>
-          </div>
+          </div> */}
         </div>
       </React.Fragment>
     );

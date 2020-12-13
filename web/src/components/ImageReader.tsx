@@ -105,7 +105,7 @@ class ImageReader extends React.Component<Props, State> {
             </div>
             {this.renderFileInput()}
           </div>
-          {this.state.loading &&
+          {(this.state.loading) &&
             <div className='loading'>Processing...</div>
           }
           {(this.state.result && !this.state.loading) &&
