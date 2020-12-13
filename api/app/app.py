@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_file
 from flask import stream_with_context, Response
-from .utils.utils import get_prediction
+from utils import utils
 app = Flask(__name__)
 
 @app.route('/hello')
@@ -10,7 +10,7 @@ def hello():
 @app.route('/predict', methods=['POST'])
 def predict():
   file = request.files['file']
-  result = get_prediction(file.read())
+  result = utils.get_prediction(file.read())
   response = jsonify(result)
   response.headers.add('Access-Control-Allow-Origin', '*')
   return response

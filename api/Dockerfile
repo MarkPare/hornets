@@ -1,5 +1,5 @@
 FROM python:3.7.5
-RUN pip3 install torch==1.3.0+cpu torchvision==0.4.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
+RUN pip3 install torch==1.6.0+cpu torchvision==0.7.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
 COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
 RUN pip3 install -r requirements.txt
