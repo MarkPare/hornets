@@ -1,0 +1,57 @@
+.image-reader {
+  height: 100vh;
+  font-family: verdana;
+
+  .background {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  .content-container {
+    position: absolute;
+    left: 100px;
+    top: 50%;
+    transform: translate(0, -50%);
+    min-height: 500px;
+    min-width: 280px;
+    border-radius: 20px;
+    background-color: rgba(0,0,0,0.7);
+    padding: 4rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pretitle {
+    margin: 0;
+    font-size: 170%;
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    font-size: 300%;
+    margin: 0;
+    margin-bottom: 4rem;
+  }
+
+  .file-input-section {
+    display: flex;
+    margin-bottom: 2rem;
+
+    .subtitle {
+      margin-right: 2rem;
+    }
+  }
+
+  .result-container {
+    font-size: 200%;
+    font-weight: bold;
+  }
+
+  .loading {
+    margin-top: 1rem;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+}
