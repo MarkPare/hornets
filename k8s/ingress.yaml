@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      if ($host = 'www.asian-giant-hornet.com' ) {
+        rewrite ^ https://asian-giant-hornet.com$request_uri permanent;
+      }
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+spec:
+  tls:
+    - hosts:
+        - asian-giant-hornet.com
+      secretName: asian-giant-hornet-com-tls
+  rules:
+    - host: asian-giant-hornet.com
+      http:
+       paths:
+        - path: /
+          backend:
+            serviceName: hornets-service
+            servicePort: 5000

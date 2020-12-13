@@ -1,0 +1,4 @@
+Flask==1.0.3
+matplotlib
+scipy
+playsound
