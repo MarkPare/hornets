@@ -3,7 +3,7 @@
 COMPONENT=$1
 
 if [[ "$COMPONENT" =~ ^(all|client|server)$ ]]; then
-  echo "Starting build for component: $COMPONENT"
+  echo "Build request for component: $COMPONENT"
 else
   echo "Unknown component: $COMPONENT"
   exit 1
