@@ -5,5 +5,5 @@ WORKDIR /app
 RUN pip3 install -r requirements.txt
 COPY app/ /app
 #CMD ["gunicorn", "-b", "0.0.0.0:5000", "--access-logfile", "-", "app:app"]
-ENTRYPOINT ["/bin/bash", "entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "./entrypoint.sh"]
 EXPOSE 5000

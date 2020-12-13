@@ -45,7 +45,6 @@ def get_prediction(image_bytes):
     main_model = get_model()
     tensor = transform_image(image_bytes)
     outputs = main_model(tensor)
-    print('outputs ' + outputs)
     # full_results = {}
     # for index, key in enumerate(class_names):
     #     full_results[key] = outputs[]
