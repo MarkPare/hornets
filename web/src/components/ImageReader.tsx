@@ -13,6 +13,10 @@ const getName = (key: string): string => {
   return nameMapping[key] || 'Unknown'
 }
 
+const getResultSimple = (key: string): string => {
+  return key === 'vespa_mandarinia' ? 'Yes' : 'No';
+}
+
 const getHost = (): string => {
   const {protocol, host} = window.location;
   return `${protocol}//${host}`;
@@ -87,6 +91,8 @@ class ImageReader extends React.Component<Props, State> {
     const pretitle = 'Is that an'
     const title = 'Asian Giant Hornet?'
     //const subtitle = 'Upload image';
+    const resultSimple = getResultSimple(this.state.result);
+    const cls = resultSimple === 'Yes' ? 'yes' : '';
 
     return (
       <div className="image-reader">
@@ -109,9 +115,14 @@ class ImageReader extends React.Component<Props, State> {
             <div className='loading'>Processing...</div>
           }
           {(this.state.result && !this.state.loading) &&
-            <p className="result-container">
-              {getName(this.state.result)} 
-            </p>
+            <div className="result-container">
+              <h2 className={`result-simple ${cls}`}>
+                {getResultSimple(this.state.result)}
+              </h2>
+              <p className='result-description'>
+                {getName(this.state.result)}
+              </p>
+            </div>
           }
           </div>
         </div>

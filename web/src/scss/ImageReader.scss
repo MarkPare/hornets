@@ -25,7 +25,12 @@
     }
 
     .result-container {
-      font-size: 200% !important;
+      .result-simple {
+        font-size: 300% !important;
+      }
+      .result-description {
+        font-size: 200% !important;
+      }
     }
   }
 
@@ -68,7 +73,7 @@
   .file-input-section {
     display: flex;
     justify-content: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
 
     .subtitle {
       margin-right: 2rem;
@@ -76,11 +81,26 @@
   }
 
   .result-container {
-    font-size: 250%;
-    font-weight: bold;
-    font-family: monospace;
-    letter-spacing: 2px;
     text-align: center;
+
+    .result-simple {
+      font-size: 400%;
+      font-weight: bold;
+      font-family: monospace;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 0;
+      color: red;
+      &.yes {
+        color: chartreuse;
+      }
+    }
+    .result-description {
+      font-size: 250%;
+      font-weight: bold;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
   }
 
   .loading {
