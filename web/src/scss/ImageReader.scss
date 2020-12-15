@@ -1,0 +1,112 @@
+.image-reader {
+  height: 100vh;
+  font-family: verdana;
+
+  @media(max-width: 900px) {
+    .content-container {
+      width: 100%;
+      height: 100%;
+      transform: none;
+      border-radius: 0px !important;
+      background-color: black !important;
+    }
+
+    .background {
+      display: none;
+    }
+
+    .title {
+      font-size: 200% !important;
+      margin-bottom: 2rem !important;
+    }
+
+    .file-input-section {
+      margin-bottom: 1rem !important;
+    }
+
+    .result-container {
+      .result-simple {
+        font-size: 300% !important;
+      }
+      .result-description {
+        font-size: 200% !important;
+      }
+    }
+  }
+
+  .background {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  .content-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 500px;
+    min-width: 280px;
+    border-radius: 20px;
+    background-color: rgba(0,0,0,0.7);
+    padding: 4rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pretitle {
+    margin: 0;
+    font-size: 120%;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: normal;
+  }
+
+  .title {
+    font-size: 300%;
+    margin: 0;
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+
+  .file-input-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    .subtitle {
+      margin-right: 2rem;
+    }
+  }
+
+  .result-container {
+    text-align: center;
+
+    .result-simple {
+      font-size: 400%;
+      font-weight: bold;
+      font-family: monospace;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 0;
+      color: red;
+      &.yes {
+        color: chartreuse;
+      }
+    }
+    .result-description {
+      font-size: 250%;
+      font-weight: bold;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+  }
+
+  .loading {
+    margin-top: 1rem;
+    font-style: italic;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+}
