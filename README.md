@@ -6,4 +6,4 @@ Checkout the [notebook](hornets/hornets.ipynb) for more information on model arc
 
 Aside from the model, the application consists of a Flask API that receives image uploads and returns a prediction, and a React web client.
 
-App is deployed using Kubernetes on GKE / GCP
+App is deployed using Kubernetes on GKE / GCP.
