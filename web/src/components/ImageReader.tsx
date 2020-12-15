@@ -5,8 +5,11 @@ import FileInput from './FileInput';
 
 const nameMapping = {
   vespa_mandarinia: 'Asian giant hornet',
-  sphecius_speciosus: 'Cicada killer',
+  vespa_velutina: 'Asian hornet',
   sphex_ichneumoneus: 'Great golden digger wasp',
+  sphecius_speciosus: 'Eastern cicada killer',
+  sphecius_grandis: 'Western cicada killer',
+  tremex_columba: 'Pigeon tremex',
 } as Record<string, string>
 
 const getName = (key: string): string => {

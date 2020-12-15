@@ -14,7 +14,14 @@ import time
 MODEL_WEIGHTS_PATH = './model_state_dicts/model.pkl'
 
 cwd = os.getcwd()
-class_names = ['vespa_mandarinia', 'sphecius_speciosus', 'sphex_ichneumoneus']
+class_names = [
+    'vespa_mandarinia',
+    'vespa_velutina',
+    'sphex_ichneumoneus',
+    'sphecius_speciosus',
+    'sphecius_grandis',
+    'tremex_columba',
+]
 
 def get_id():
     return str(uuid4())
