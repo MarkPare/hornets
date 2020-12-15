@@ -13,8 +13,14 @@ import time
 
 MODEL_WEIGHTS_PATH = './model_state_dicts/model.pkl'
 
-cwd = os.getcwd()
-class_names = ['vespa_mandarinia', 'sphecius_speciosus', 'sphex_ichneumoneus']
+class_names = [
+    'vespa_mandarinia',
+    'vespa_velutina',
+    'sphex_ichneumoneus',
+    'sphecius_speciosus',
+    'sphecius_grandis',
+    'tremex_columba',
+]
 
 def get_id():
     return str(uuid4())
@@ -28,8 +34,6 @@ def get_model():
     model.eval()
     return model
 
-main_model = get_model()
-
 def transform_image(image_bytes):
     # TODO: check that these transforms are legit and correct
     ts = transforms.Compose([
@@ -42,12 +46,9 @@ def transform_image(image_bytes):
     return ts(image).unsqueeze(0)
 
 def get_prediction(image_bytes):
-    main_model = get_model()
+    model = get_model()
     tensor = transform_image(image_bytes)
-    outputs = main_model(tensor)
-    # full_results = {}
-    # for index, key in enumerate(class_names):
-    #     full_results[key] = outputs[]
+    outputs = model(tensor)
     _, y_hat = outputs.max(1)
     predicted_index = y_hat.item()
     prediction = class_names[predicted_index]
