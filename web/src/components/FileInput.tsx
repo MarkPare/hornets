@@ -46,14 +46,6 @@ export class FileInput extends React.Component<Props, State> {
     }
   }
 
-  handleSubmit = () => {
-    const files = this.state.fileItems.map((fileItem: FileItem) => fileItem.file);
-    
-    this.props.onSubmit({
-      files,
-    });
-  }
-
   handleFileChange = (event: any) => {
     const {files} = event.target;
     const asArray = Array.from(files).map(file => ({file, id: '1'})) as FileItem[];

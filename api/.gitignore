@@ -4,6 +4,3 @@ lib
 .Python
 pip-selfcheck.json
 **/__pycache__
-**/audio/**
-**/uploads/**
-**/predictor/app/*DS_Store

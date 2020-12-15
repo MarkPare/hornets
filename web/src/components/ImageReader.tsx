@@ -54,7 +54,7 @@ class ImageReader extends React.Component<Props, State> {
     loading: false,
   }
 
-  fileInput:any = null
+  fileInput: any = null
 
   handleSubmit = (params: {files: File[]}) => {
     const {files} = params
@@ -76,12 +76,6 @@ class ImageReader extends React.Component<Props, State> {
   renderFileInput() {
     return (
       <div className="file-input-container">
-        {/* <input
-          className="file-input"
-          type="file"
-          ref={el => this.fileInput = el}
-          onChange={this.handleFileChange}
-        /> */}
         <FileInput onSubmit={this.handleSubmit} />
       </div>
     )
@@ -90,7 +84,6 @@ class ImageReader extends React.Component<Props, State> {
   render() {
     const pretitle = 'Is that an'
     const title = 'Asian Giant Hornet?'
-    //const subtitle = 'Upload image';
     const resultSimple = getResultSimple(this.state.result);
     const cls = resultSimple === 'Yes' ? 'yes' : '';
 
@@ -105,9 +98,6 @@ class ImageReader extends React.Component<Props, State> {
           </div>
           <div className="file-input-section">
             <div className='left'>
-              {/* <div className='subtitle'>
-                {subtitle}
-              </div> */}
             </div>
             {this.renderFileInput()}
           </div>
