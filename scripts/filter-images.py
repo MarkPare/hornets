@@ -1,15 +1,8 @@
 import json
-import subprocess
-import sys
 import shutil
 import os
 
 KEEP_PATH = 'keep'
-
-# Convenience function for passing
-# same params to check_call
-def call_shell(command):
-  subprocess.check_call(command, shell=True, stderr=subprocess.STDOUT)
 
 def process_dir(path, whitelist):
     files = os.listdir(path)
