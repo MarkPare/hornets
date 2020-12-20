@@ -24,7 +24,9 @@ function importAll(r: any) {
 // unfortunately, so use a static parent dir and recurse
 // through subdirs (second arg boolean for recursion)
 // https://github.com/webpack/webpack/issues/9300
-const ALL_IMAGES = importAll((require as any).context('./image-data', true, /\.(png|jpe?g|svg)$/));
+const ALL_IMAGES = process.env.NODE_ENV === 'production'
+  ? []
+  : importAll((require as any).context('./image-data', true, /\.(png|jpe?g|svg)$/));
 
 const getImageDataFromDir = () => {
   const initialImageData: ImageData = {};
