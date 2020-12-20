@@ -2,9 +2,7 @@ import json
 import subprocess
 import sys
 
-# Convenience function for passing
-# same params to check_call
-def callShell(command):
+def call_shell(command):
   subprocess.check_call(command, shell=True, stderr=subprocess.STDOUT)
 
 def main():
@@ -15,7 +13,7 @@ def main():
   > secretName=my-secret
   > cert=/local/path/to/certs/fullchain.pem
   > key=/local/path/to/certs/privkey.pem.pem
-  > namespaces=dev,qa,feature-1
+  > namespaces=default
   > python update-certs.py $cert $key $namespaces
   '''
   secretName = sys.argv[1]
@@ -27,7 +25,7 @@ def main():
 
   for namespace in namespaces:
     command = 'kubectl create secret tls {} --cert={} --key={} --dry-run -o yaml | kubectl apply -n {} -f -'.format(secretName, certFilePath, keyFilePath, namespace)
-    callShell(command)
+    call_shell(command)
 
 if __name__ == '__main__':
   main()
