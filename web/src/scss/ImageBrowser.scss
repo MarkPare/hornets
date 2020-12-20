@@ -1,0 +1,99 @@
+@import 'settings';
+
+.mask {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.3);
+  display: none;
+  z-index: 3;
+}
+
+.image-browser {
+  margin: auto;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 100vh;
+  overflow: auto;
+
+  &.include {
+    .images-container {
+      display: flex;
+      flex-wrap: wrap;
+      .image-container {
+        margin: 10px;
+        cursor: pointer;
+        padding: 0;
+        &.selected {
+          .mask {
+            display: block;
+          }          
+        }
+      }
+    }
+  }
+
+  .images-container {
+    margin: auto;
+  }
+  .image-container {
+    position: relative;
+    align-items: center;
+    background-color: white;
+    border: solid 1px $light-gray;
+
+    .image-inner {
+      text-align: center;
+    }
+
+    img {
+      display: block;
+      object-fit: contain;
+      height: 400px;
+      width: 300px;
+      text-align: center;
+      margin: auto;
+    }
+
+    .desc {
+      border-top: solid 1px $light-gray;
+      padding: .5rem;
+      justify-content: center;
+      font-family: $font-primary;
+      p {
+        margin: none;
+        padding: none;
+      }
+    }
+
+    .classes-container {
+      .checkbox-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        min-height: 200px;
+        min-width: 200px;
+        padding: 1rem;
+        border-radius: 5px;
+        &:hover {
+          background-color: $light-gray;
+        }
+        cursor: pointer;
+        &:last-child {
+          margin-bottom: none;
+        }
+        .checkbox {
+          width: 30px;
+          height: 30px;
+          border-radius: 5px;
+          margin-right: 1rem;
+          cursor: pointer;
+          border: solid 1px $light-gray;
+          &.selected {
+            background-color: blue;
+          }
+        }
+      }
+    }
+  }
+}

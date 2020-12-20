@@ -11,7 +11,7 @@ import os
 import sys
 import time
 
-MODEL_WEIGHTS_PATH = './model_state_dicts/model.pkl'
+MODEL_WEIGHTS_PATH = './model_state_dicts/weights.pkl'
 
 class_names = [
     'vespa_mandarinia',

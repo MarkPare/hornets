@@ -39,8 +39,10 @@ const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 
 const isExtendingEslintConfig = process.env.EXTEND_ESLINT === 'true';
 
+// Set this to zero so that images are always
+// a path and NOT a base64-encoded string
 const imageInlineSizeLimit = parseInt(
-  process.env.IMAGE_INLINE_SIZE_LIMIT || '10000'
+  process.env.IMAGE_INLINE_SIZE_LIMIT || '0'
 );
 
 // Check if TypeScript is setup
@@ -358,7 +360,9 @@ module.exports = function(webpackEnv) {
               loader: require.resolve('url-loader'),
               options: {
                 limit: imageInlineSizeLimit,
-                name: 'static/media/[name].[hash:8].[ext]',
+                // No hash during development so that true path
+                // to image is preserved
+                name: isEnvProduction ? 'static/media/[name].[hash:8].[ext]' : 'static/media/[name].[ext]',
               },
             },
             // Process application JS with Babel.
@@ -674,16 +678,21 @@ module.exports = function(webpackEnv) {
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell webpack to provide empty mocks for them so importing them works.
-    node: {
-      module: 'empty',
-      dgram: 'empty',
-      dns: 'mock',
-      fs: 'empty',
-      http2: 'empty',
-      net: 'empty',
-      tls: 'empty',
-      child_process: 'empty',
-    },
+    node: process.env.TARGET_ELECTRON === 'true'
+      ? undefined
+      : {
+        module: 'empty',
+        dgram: 'empty',
+        dns: 'mock',
+        fs: 'empty',
+        http2: 'empty',
+        net: 'empty',
+        tls: 'empty',
+        child_process: 'empty',
+      },
+    // Support electron-renderer target via
+    // environmental flag, default to web
+    target: process.env.TARGET_ELECTRON === 'true' ? 'electron-renderer' : 'web',
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,

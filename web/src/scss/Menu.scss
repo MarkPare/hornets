@@ -1,0 +1,95 @@
+@import 'settings';
+
+.menu {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  z-index: 4;
+  border-left: solid 1px gray;
+  border-bottom: solid 1px gray;
+  background-color: white;
+  border-bottom-left-radius: 15px;
+  overflow: hidden;
+
+  &.expanded {
+    .menu-content {
+      display: block;
+    }
+    .expand-icon {
+      transform: rotate(0deg) !important;
+    }
+  }
+
+  .expand-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    &:hover {
+      background-color: $light-gray;
+      cursor: pointer;
+    }
+    .expand-icon {
+      margin: 10px;
+      height: 30px;
+      font-size: 200%;
+      color: black;
+      font-weight: bold;
+      transform: rotate(180deg);
+    }
+  }
+
+  .menu-content {
+    display: none;
+    padding: 1rem;
+  }
+
+  .buttons-container {
+    text-align: right;
+  }
+
+  .button {
+    padding: .5rem;
+    min-width: 100px;
+    margin: 0;
+    margin-bottom: .5rem;
+    border-radius: 5px;
+    font-family: $font-primary;
+    font-size: 120%;
+    cursor: pointer;
+    color: white;
+    background-color: lighten(blue, 12%);
+    width: 100%;
+  }
+
+  .clear-button {
+    right: 0;
+    padding: .5rem;
+    margin: 0;
+    border: none;
+    outline: none;
+    font-family: $font-primary;
+    cursor: pointer;
+    color: black;
+    font-size: 95%;
+    background-color: transparent;
+
+    &:hover {
+      background-color: $light-gray;
+    }
+  }
+
+  .options-title {
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: .75rem;
+    color: lighten(black, 25%);
+  }
+  .dir-select {
+    margin-bottom: 2rem;
+    .class {
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+}
