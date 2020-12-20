@@ -2,19 +2,7 @@ import React from 'react';
 import '../scss/ImageReader.scss';
 import background from '../assets/images/murder-hornet.jpg';
 import FileInput from './FileInput';
-
-const nameMapping = {
-  vespa_mandarinia: 'Asian giant hornet',
-  vespa_velutina: 'Asian hornet',
-  sphex_ichneumoneus: 'Great golden digger wasp',
-  sphecius_speciosus: 'Eastern cicada killer',
-  sphecius_grandis: 'Western cicada killer',
-  tremex_columba: 'Pigeon tremex',
-} as Record<string, string>
-
-const getName = (key: string): string => {
-  return nameMapping[key] || 'Unknown'
-}
+import {getName} from '../utils';
 
 const getResultSimple = (key: string): string => {
   return key === 'vespa_mandarinia' ? 'Yes' : 'No';
