@@ -1,6 +1,7 @@
 rm -rf app/model_state_dicts || true
 mkdir app/model_state_dicts
-curl "https://storage.googleapis.com/mp-general-storage/weights.pkl" > ./model_state_dicts/model.pkl
+WEIGHTS_URL="https://storage.googleapis.com/mp-general-storage/weights.pkl"
+curl $WEIGHTS_URL > ./model_state_dicts/weights.pkl
 
 if [ "$APP_ENV" == "prod" ]
 then
