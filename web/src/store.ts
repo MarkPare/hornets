@@ -118,13 +118,14 @@ export class Store {
   }
 
   saveImageData() {
-    const toDelete: string[] = []
+    const selected: string[] = []
     Object.values(this.imageData).forEach((image: Image) => {
       if (image.selectedClasses.includes(this.mode)) {
-        toDelete.push(image.fileName);
+        selected.push(image.fileName);
       }
     });
-    downloadObjectAsJson(toDelete, 'hornets-data');
+    const asObject = {data: selected}
+    downloadObjectAsJson(asObject, 'hornets-data');
   }
 }
 
