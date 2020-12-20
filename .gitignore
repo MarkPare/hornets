@@ -3,3 +3,4 @@ test-images
 model_state_dicts
 **/.DS_Store
 scripts/keep
+scripts/.ipynb_checkpoints
