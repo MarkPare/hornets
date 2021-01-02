@@ -1,5 +1,5 @@
 import {observable, action, makeObservable, computed} from 'mobx';
-import { downloadObjectAsJson, getClassNameFromFileName, getFileNameFromSrc } from './utils';
+import { CLASS_NAMES, downloadObjectAsJson, getClassNameFromFileName, getFileNameFromSrc } from './utils';
 
 const STORAGE_KEY = 'imageData';
 
@@ -30,8 +30,7 @@ const ALL_IMAGES = process.env.NODE_ENV === 'production'
 
 const getImageDataFromDir = () => {
   const initialImageData: ImageData = {};
-  ALL_IMAGES
-    .forEach((src: string) => {
+  ALL_IMAGES.forEach((src: string) => {
     const fileName = getFileNameFromSrc(src);
     initialImageData[fileName] = {
       src,
@@ -70,7 +69,7 @@ const getInitialImageData = (): {imageData: ImageData, fromLocalStorage: boolean
 export class Store {
   imageData: ImageData = {};
   mode: Mode = Mode.INCLUDE;
-  dirFilter: string = 'vespa_velutina';
+  dirFilter: string = CLASS_NAMES.vespa_mandarinia;
 
   constructor() {
     const {imageData, fromLocalStorage} = getInitialImageData();
@@ -92,7 +91,7 @@ export class Store {
   get filteredImageData() {
     const data: ImageData = {}
     const dirFilter = this.dirFilter
-    Object.values(this.imageData).forEach((image: any) => {
+    Object.values(this.imageData).forEach((image: Image) => {
       if (image.src.indexOf(dirFilter) > -1) {
         data[image.fileName] = image;
       }
