@@ -19,9 +19,11 @@ fi
 
 echo "Running build and deploy script..."
 
-EXPECTED_PROJECT_ID="learn-217205"
+# `EXPECTED_PROJECT_ID` and `EXPECTED_CONTEXT` should
+# be set as env vars. Will be specific to where app should
+# be deployed to per your setup
+
 PROJECT_ID=$(gcloud config get-value project)
-EXPECTED_CONTEXT="gke_learn-217205_us-west1-a_prod-cluster"
 CONTEXT=$(kubectl config current-context)
 
 if [ "$PROJECT_ID" != "$EXPECTED_PROJECT_ID" ]
