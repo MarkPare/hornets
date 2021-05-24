@@ -8,10 +8,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - app.asian-giant-hornet.com
-      secretName: asian-giant-hornet-com-tls
+        - asian-giant-hornet.com
+      secretName: tls-secret
   rules:
-    - host: app.asian-giant-hornet.com
+    - host: asian-giant-hornet.com
       http:
        paths:
         - path: /hello
