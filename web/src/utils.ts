@@ -63,3 +63,39 @@ export const parseUrlForKey = (key: string, url: string): string | undefined => 
   const parsed = qsParse(url, {ignoreQueryPrefix: true});
   return parsed[key] as string | undefined;
 }
+
+// https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event
+export const handlePaste = (event: any) => {
+  const win = window as any;
+  let paste = (event.clipboardData || win.clipboardData).getData('text');
+  console.log('paste data', paste)
+  paste = paste.toUpperCase();
+
+  const selection = win.getSelection();
+  if (!selection.rangeCount) return false;
+  selection.deleteFromDocument();
+  selection.getRangeAt(0).insertNode(document.createTextNode(paste));
+
+  event.preventDefault();
+}
+
+// https://javascript.plainenglish.io/how-to-find-the-caret-inside-a-contenteditable-element-955a5ad9bf81
+export function getCaretCoordinates() {
+  let x = 0;
+  let y = 0;
+  const win = window as any;
+  const isSupported = typeof win.getSelection !== "undefined";
+  if (isSupported) {
+    const selection = win.getSelection();
+    if (selection.rangeCount !== 0) {
+      const range = selection.getRangeAt(0).cloneRange();
+      range.collapse(true);
+      const rect = range.getClientRects()[0];
+      if (rect) {
+        x = rect.left;
+        y = rect.top;
+      }
+    }
+  }
+  return { x, y };
+}

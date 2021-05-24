@@ -1,6 +1,7 @@
 import React from 'react';
-import ImageReader from './ImageReader';
+//import ImageReader from './ImageReader';
 import ImageBrowser from './ImageBrowser';
+import TextView from './TextView';
 import {Route, Switch} from 'react-router';
 
 interface Props {}
@@ -15,7 +16,7 @@ const App: React.FC<Props> = () => {
         />
         <Route
           path='/'
-          component={ImageReader}
+          component={TextView}
         />
       </Switch>
     </div>
