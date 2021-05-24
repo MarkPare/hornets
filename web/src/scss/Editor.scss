@@ -1,0 +1,11 @@
+@import 'settings';
+
+.editor {
+  width: 20rem;
+  border: solid 1px gray;
+  border-radius: .25rem;
+  padding: 1rem;
+  &:focus {
+    border: solid 1px gray;
+  }
+}
